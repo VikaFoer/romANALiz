@@ -13,20 +13,15 @@
 ## Структура
 
 ```
-airbot/
-  config/     # pydantic settings, YAML loader, caching
-  db/         # Database interface, SQLite/PostgreSQL pools
-  detectors/  # Детектори подій
-  scoring/    # Скоринг
-  output/     # Kafka, Webhook
-  collector/  # Збір та черга
-  soc_mint/   # SOC-MINT модуль
-main.py       # Entry point
-tests/        # Unit-тести
-docker/       # Dockerfile
-.github/      # CI
-k8s/          # Kubernetes
-deploy/       # systemd
+airbot/         # Backend (FastAPI, черга, детектори, …)
+frontend/       # React (Vite + TS) — збірка в static/
+static/         # Зібраний фронтенд (index.html + assets)
+config/         # example.yaml
+tests/          # Unit-тести
+docker/         # Dockerfile (Node + Python, uvicorn)
+.github/        # CI
+k8s/            # Kubernetes
+deploy/         # systemd
 ```
 
 ## Швидкий старт
@@ -38,15 +33,23 @@ cp .env.example .env
 python -m venv .venv
 .venv\Scripts\activate   # Windows
 pip install -e ".[dev]"
+
+# Зібрати React-фронтенд (потрібен Node)
+cd frontend && npm ci && npm run build && cd ..
+
 pytest
-python -m airbot.main
+uvicorn airbot.web:app --host 0.0.0.0 --port 8000
 ```
+
+Відкрийте `http://localhost:8000` — інтерфейс React (форма подій, статус, посилання на API).
 
 ## Docker
 
+Dockerfile збирає React-фронтенд і запускає uvicorn:
+
 ```bash
 docker build -f docker/Dockerfile -t air-bot .
-docker run --env-file .env -p 8000:8000 air-bot
+docker run --env-file .env -p 8000:8000 -e PORT=8000 air-bot
 ```
 
 ## Деплой на Railway
@@ -54,8 +57,8 @@ docker run --env-file .env -p 8000:8000 air-bot
 1. Підключіть репо [GitHub → Railway](https://railway.app).
 2. Новий проєкт → **Deploy from GitHub** → оберіть `VikaFoer/romANALiz`.
 3. У **Variables** додайте змінні з `.env.example` (принаймні `DATABASE_URL`; `PORT` Railway задає сам).
-4. Деплой: Railway використовує `Procfile` / `railway.json`, збирає через Nixpacks, запускає `uvicorn airbot.web:app --host 0.0.0.0 --port $PORT`.
-5. Після деплою: `https://<your-app>.up.railway.app/health` та `POST /events` для подій.
+4. Деплой: Nixpacks (`nixpacks.toml`) збирає фронтенд (`frontend/` → `static/`) і бекенд, потім `uvicorn airbot.web:app --host 0.0.0.0 --port $PORT`. Альтернатива: **Dockerfile** (Railway → Use Dockerfile).
+5. Після деплою: `https://<your-app>.up.railway.app/` — React-інтерфейс, `/health`, `POST /events`.
 
 **Локально (web-режим як на Railway):**
 

@@ -33,6 +33,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 .bg {
   position: fixed;
   inset: 0;
@@ -61,7 +65,7 @@ body {
   gap: 0.5rem 1rem;
 }
 
-.logo-icon {
+.logoIcon {
   font-size: 1.5rem;
   color: var(--accent);
 }
@@ -87,7 +91,7 @@ body {
   color: var(--muted);
 }
 
-.status-dot {
+.statusDot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -95,11 +99,11 @@ body {
   animation: pulse 2s ease-in-out infinite;
 }
 
-.status.ok .status-dot {
+.status.ok .statusDot {
   background: var(--success);
 }
 
-.status.err .status-dot {
+.status.err .statusDot {
   background: var(--error);
 }
 
@@ -135,7 +139,7 @@ body {
   }
 }
 
-.card-hero h2 {
+.cardHero h2 {
   margin: 0 0 0.5rem;
   font-size: 1.25rem;
   font-weight: 600;
@@ -212,12 +216,12 @@ body {
   transform: scale(0.98);
 }
 
-.btn-primary {
+.btnPrimary {
   background: var(--accent);
   color: var(--bg);
 }
 
-.btn-primary:hover {
+.btnPrimary:hover {
   box-shadow: 0 0 24px var(--accent-dim);
 }
 
@@ -227,26 +231,26 @@ body {
   transform: none;
 }
 
-.form-feedback {
+.formFeedback {
   margin-top: 0.5rem;
   padding: 0.75rem;
   border-radius: var(--radius-sm);
   font-size: 0.9rem;
 }
 
-.form-feedback.success {
+.formFeedback.success {
   background: rgba(52, 211, 153, 0.15);
   color: var(--success);
   border: 1px solid rgba(52, 211, 153, 0.3);
 }
 
-.form-feedback.error {
+.formFeedback.error {
   background: rgba(248, 113, 113, 0.15);
   color: var(--error);
   border: 1px solid rgba(248, 113, 113, 0.3);
 }
 
-.card-links h3 {
+.cardLinks h3 {
   margin: 0 0 1rem;
   font-size: 1rem;
   font-weight: 600;

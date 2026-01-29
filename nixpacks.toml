@@ -1,0 +1,14 @@
+# Node (frontend) + Python (backend). Build frontend then run uvicorn.
+providers = ["python"]
+
+[phases.setup]
+nixPkgs = ["...", "nodejs"]
+
+[phases.install]
+cmds = ["pip install -e ."]
+
+[phases.build]
+cmds = ["cd frontend && npm ci && npm run build"]
+
+[start]
+cmd = "uvicorn airbot.web:app --host 0.0.0.0 --port ${PORT:-8000}"
