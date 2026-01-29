@@ -44,6 +44,17 @@ class EventIn(BaseModel):
     payload: dict[str, Any] | None = None
 
 
+@app.get("/")
+async def root() -> dict[str, Any]:
+    return {
+        "app": "Air-bot",
+        "version": "0.1.0",
+        "docs": "/docs",
+        "health": "/health",
+        "events": "POST /events",
+    }
+
+
 @app.get("/health")
 async def health() -> dict[str, str]:
     return {"status": "ok"}
