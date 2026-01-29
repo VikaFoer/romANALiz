@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Air-bot — Maximum-Detail & Efficiency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">◈</span>
+      <h1>Air-bot</h1>
+      <span class="tagline">Maximum-Detail & Efficiency</span>
+    </div>
+    <div class="status" id="status">
+      <span class="status-dot"></span>
+      <span class="status-text">перевірка…</span>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="card card-hero">
+      <h2>Надіслати подію</h2>
+      <p class="muted">Подія потрапляє в чергу, обробляється детекторами і скорингом.</p>
+      <form class="form" id="event-form">
+        <div class="field">
+          <label for="evt-id">ID події</label>
+          <input id="evt-id" name="id" type="text" placeholder="evt-001" value="evt-001" />
+        </div>
+        <div class="field">
+          <label for="evt-value">Value (0–100)</label>
+          <input id="evt-value" name="value" type="number" min="0" max="100" step="0.01" placeholder="50" value="50" />
+        </div>
+        <div class="field">
+          <label for="evt-payload">Payload (JSON, опційно)</label>
+          <textarea id="evt-payload" name="payload" rows="3" placeholder='{"source": "web"}'></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit-btn">
+          <span class="btn-text">Надіслати</span>
+        </button>
+      </form>
+      <div class="form-feedback" id="form-feedback" hidden></div>
+    </section>
+
+    <section class="card card-links">
+      <h3>API</h3>
+      <ul class="links">
+        <li><a href="/health">GET /health</a> — стан сервісу</li>
+        <li><a href="/docs">GET /docs</a> — Swagger UI</li>
+        <li><code>POST /events</code> — надіслати подію</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Air-bot v0.1.0</span>
+  </footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>

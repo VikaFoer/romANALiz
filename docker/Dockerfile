@@ -16,6 +16,7 @@ COPY --from=builder /install /usr/local
 COPY pyproject.toml ./
 COPY airbot ./airbot
 COPY config ./config
+COPY static ./static
 RUN pip install --no-cache-dir -e . && \
     mkdir -p /app/data /app/logs && chown -R appuser /app
 USER appuser
