@@ -1,0 +1,19 @@
+# Air-bot systemd unit
+# Install: sudo cp deploy/air-bot.service /etc/systemd/system/
+#         sudo systemctl daemon-reload && sudo systemctl enable --now air-bot
+[Unit]
+Description=Air-bot Maximum-Detail & Maximum-Efficiency
+After=network.target
+
+[Service]
+Type=simple
+User=appuser
+Group=appuser
+WorkingDirectory=/opt/air-bot
+EnvironmentFile=/opt/air-bot/.env
+ExecStart=/opt/air-bot/.venv/bin/python -m airbot.main
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

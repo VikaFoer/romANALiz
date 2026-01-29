@@ -1,0 +1,19 @@
+# Air-bot example YAML config (use with get_cached_config)
+app:
+  name: air-bot
+  env: development
+
+detectors:
+  enabled:
+    - example
+  weights:
+    example: 1.0
+
+scoring:
+  aggregate: weighted_average
+
+output:
+  kafka:
+    enabled: false
+  webhook:
+    enabled: false
